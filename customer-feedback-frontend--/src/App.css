@@ -1,0 +1,218 @@
+.app {
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #000;
+}
+
+.nav-user {
+  font-size: 14px;
+  margin-left: auto;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn:hover:not(:disabled) {
+  background: #000;
+  color: #fff;
+}
+
+.btn.primary {
+  background: #000;
+  color: #fff;
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: #fff;
+  color: #000;
+}
+
+.btn.full {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.link {
+  color: inherit;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Alerts */
+.alert {
+  padding: 10px 12px;
+  border: 1px solid #000;
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+
+/* Auth */
+.auth-card {
+  max-width: 400px;
+  margin: 8vh auto 0;
+  padding: 28px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #555;
+  margin: 0 0 18px;
+}
+
+.switch {
+  margin: 18px 0 0;
+  font-size: 14px;
+}
+
+/* Page / cards */
+.page {
+  padding: 24px;
+  max-width: 1010px;
+  margin: 0 auto;
+}
+
+.card {
+  border: 1px solid #000;
+  border-radius: 4px;
+  padding: 18px;
+  margin: 0 0 18px;
+}
+
+.muted {
+  color: #555;
+  font-size: 13px;
+}
+
+/* Forms */
+.form label {
+  display: block;
+  font-size: 13px;
+  margin: 0 0 12px;
+}
+
+.form input,
+.form select,
+.form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px 10px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  background: #fff;
+  font-size: 14px;
+}
+
+.form textarea {
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* Feedback list */
+.feedback-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.feedback-item {
+  padding: 12px 14px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.feedback-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px solid #000;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Admin tabs */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 18px;
+}
+
+.tab {
+  padding: 7px 14px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.tab.active {
+  background: #000;
+  color: #fff;
+}
+
+/* Tables */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #000;
+  font-size: 14px;
+  vertical-align: top;
+}
+
+.cell-message {
+  max-width: 320px;
+  word-break: break-word;
+}
+
+.cell-actions {
+  display: flex;
+  gap: 6px;
+  white-space: nowrap;
+}
