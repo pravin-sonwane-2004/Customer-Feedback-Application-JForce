@@ -16,6 +16,7 @@ public final class Response {
         Map<String, Object> m = new LinkedHashMap<>();
         m.put("id", u.getId());
         m.put("name", u.getName());
+        m.put("username", u.getUsername());
         m.put("email", u.getEmail());
         m.put("role", u.getRole());
         return m;

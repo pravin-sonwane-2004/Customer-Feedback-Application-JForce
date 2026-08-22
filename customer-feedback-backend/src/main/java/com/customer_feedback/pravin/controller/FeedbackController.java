@@ -27,22 +27,26 @@ public class FeedbackController {
 
     @GetMapping("/{userId}")
     public List<Map<String, Object>> listForUser(@PathVariable Long userId) {
+        feedbackService.requireSameUser(userId);
         return feedbackService.listForUser(userId);
     }
 
     @PostMapping
     public Map<String, Object> create(@RequestParam Long userId, @RequestBody FeedbackRequest req) {
+        feedbackService.requireSameUser(userId);
         return feedbackService.createForUser(userId, req);
     }
 
     @PutMapping("/{id}")
     public Map<String, Object> update(@PathVariable Long id, @RequestParam Long userId,
                                       @RequestBody FeedbackRequest req) {
+        feedbackService.requireSameUser(userId);
         return feedbackService.updateOwn(id, userId, req);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id, @RequestParam Long userId) {
+        feedbackService.requireSameUser(userId);
         feedbackService.deleteOwn(id, userId);
     }
 }

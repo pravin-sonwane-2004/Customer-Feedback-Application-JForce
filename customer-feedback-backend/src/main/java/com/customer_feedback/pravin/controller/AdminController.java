@@ -3,6 +3,7 @@ package com.customer_feedback.pravin.controller;
 import com.customer_feedback.pravin.dto.FeedbackRequest;
 import com.customer_feedback.pravin.service.AuthService;
 import com.customer_feedback.pravin.service.FeedbackService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
+@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
     private final FeedbackService feedbackService;

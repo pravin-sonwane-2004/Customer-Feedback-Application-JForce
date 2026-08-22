@@ -17,7 +17,10 @@ export default function RegisterPage({ onRegister, onGoLogin }) {
     }
     setLoading(true)
     try {
-      const data = await api.post('/auth/register', { name, email, password })
+      // Registration returns the safe user record (no password).
+      await api.post('/auth/register', { name, email, password })
+      // Log the new account in right away so the session includes the JWT.
+      const data = await api.post('/auth/login', { email, password })
       setSession(data)
       onRegister(data)
     } catch (err) {

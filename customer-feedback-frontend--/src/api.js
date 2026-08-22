@@ -1,7 +1,7 @@
 // Lightweight API client for the Customer Feedback backend.
 const API_BASE = 'http://localhost:8080/api'
 
-// The logged-in user session (including role) is stored in sessionStorage.
+// The logged-in user session (including the JWT token and role) is stored in sessionStorage.
 export function getSession() {
   try {
     return JSON.parse(sessionStorage.getItem('session'))
@@ -18,8 +18,14 @@ export function clearSession() {
   sessionStorage.removeItem('session')
 }
 
+// Adds "Authorization: Bearer <token>" to every request when a session exists.
+function authHeaders() {
+  const session = getSession()
+  return session && session.token ? { Authorization: 'Bearer ' + session.token } : {}
+}
+
 async function request(path, { method = 'GET', body } = {}) {
-  const headers = {}
+  const headers = { ...authHeaders() }
   if (body !== undefined) headers['Content-Type'] = 'application/json'
 
   let res
@@ -33,6 +39,12 @@ async function request(path, { method = 'GET', body } = {}) {
     throw new Error(
       'Cannot reach the server.',
     )
+  }
+
+  // Token missing, expired or invalid -> forget the session and go back to login.
+  if (res.status === 401) {
+    clearSession()
+    window.dispatchEvent(new Event('auth:unauthorized'))
   }
 
   if (res.status === 204) return null

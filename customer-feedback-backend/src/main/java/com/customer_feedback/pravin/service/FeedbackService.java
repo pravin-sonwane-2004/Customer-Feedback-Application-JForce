@@ -7,6 +7,8 @@ import com.customer_feedback.pravin.model.User;
 import com.customer_feedback.pravin.repository.FeedbackRepository;
 import com.customer_feedback.pravin.repository.UserRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -76,6 +78,30 @@ public class FeedbackService {
 
     public void delete(Long id) {
         feedback.deleteById(id);
+    }
+
+    /**
+     * Resolves the authenticated user from the JWT-populated SecurityContext.
+     * Used whenever an endpoint must answer "who is calling?".
+     */
+    public User currentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = users.findByEmail(email);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authenticated user not found.");
+        }
+        return user;
+    }
+
+    /**
+     * Prevents a logged-in user from reading/writing another user's data even
+     * if they tamper with the {@code userId} request parameter.
+     */
+    public void requireSameUser(Long userId) {
+        if (!currentUser().getId().equals(userId)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can only access your own feedback.");
+        }
     }
 
     private User requireUser(Long userId) {

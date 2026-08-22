@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getSession, clearSession } from './api'
 import LoginPage from './components/LoginPage.jsx'
 import RegisterPage from './components/RegisterPage.jsx'
@@ -10,6 +10,17 @@ export default function App() {
   const stored = getSession()
   const [user, setUser] = useState(stored)
   const [page, setPage] = useState(() => (stored ? 'app' : 'login'))
+
+  // Force logout when the backend rejects the JWT (401) on any API call.
+  useEffect(() => {
+    function onUnauthorized() {
+      clearSession()
+      setUser(null)
+      setPage('login')
+    }
+    window.addEventListener('auth:unauthorized', onUnauthorized)
+    return () => window.removeEventListener('auth:unauthorized', onUnauthorized)
+  }, [])
 
   function handleSession(data) {
     setUser(data)
